@@ -5,6 +5,7 @@ var mongoose = require('mongoose');
 var bodyparser = require('body-parser');
 var app = express();
 app.use(bodyparser.json());
+app.use(express.static(__dirname + '/build'));
 
 var mongoose = require('mongoose');
 var uriUtil = require('mongodb-uri');
