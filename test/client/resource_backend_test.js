@@ -43,4 +43,26 @@ describe('resource service', function() {
 
     $httpBackend.flush();
   });
+
+  it('should be able to edit a note', function() {
+    var modifiedTestNote = {'_id': '1', 'noteBody': 'hipster ipsum modified'};
+    $httpBackend.expectPUT('/api/notes/1').respond(200,modifiedTestNote);
+    notesService.save(modifiedTestNote)
+    .success(function(data) {
+      expect(data.noteBody).toEqual('hipster ipsum modified');
+      expect(data._id).toEqual('1');
+    });
+
+    $httpBackend.flush();
+  });
+
+  it('should be able to delete a note', function() {
+    $httpBackend.expectDELETE('/api/notes/1').respond(200, {msg: 'success!'} );
+    notesService.delete(testNote)
+    .success(function(data) {
+      expect(data.msg).toEqual('success!');
+    });
+
+    $httpBackend.flush();
+  });
 });
